@@ -1,0 +1,26 @@
+{% extends 'base.htm' %}
+{% block title %}Delete Book{% endblock title %}
+{% block body %}
+<p style="text-align: center;font-size: 30px; font-weight:bold">Do you really want to delete this book ?
+<div style="display: flex;height: 92vh;padding: 20px;">
+    <div style="width: 50%;height: 100%;">
+        <img src="{{book.book_img.url}}" style="height: 100%;" class="card-img-top" alt="...">
+    </div>
+    <div style="width: 50%;padding: 12px;">
+        <div style="display: flex;justify-content: right;">
+
+</div>
+<p style="font-size: 3vw;">{{book.name}} <span style="color:orange">by</span> {{book.author}}</p>
+<p style="font-size: 2vw;">Price :  <span style="color:red; font-weight:bold">Rs. {{book.price}}</span></p>
+<b style="font-size:2vw;">About the Book :</b>
+<p>{{book.description}}</p>
+<form method = "POST" style="display: flex;position: absolute;bottom: 24px;width: 48%;">
+    {% csrf_token %}
+    <button type="submit" class = "btn btn-danger" style="width: 50%;margin-right: 4px;">Delete</button>
+    <a class = "btn btn-light" href="/" style="width: 50%;">Cancel</a>
+</form>
+</div>
+</div>
+
+
+{% endblock body %}

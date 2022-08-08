@@ -1,0 +1,32 @@
+{% extends 'base.htm' %}
+{% block title %}Add Book{% endblock title %}
+{% block body %}
+<div style="height: 92vh;width: 100%;display: flex;justify-content: center;align-items: center;">
+<form method ="POST" action="/addBook" enctype="multipart/form-data" style="width: 50%;background: #e7e7e7;padding: 25px;border-radius: 15px;"> 
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="book_img" class="form-label">Book Image : </label>
+      <input type="file" class="form-control" name="book_img" id="name" >
+    </div>
+  <div class="mb-3">
+    <label for="name" class="form-label">Book Name : </label>
+    <input type="text" class="form-control" name="name" id="name" placeholder="Enter book name">
+  </div>
+  <div class="mb-3">
+    <label for="author" name="desc" class="form-label">Author : </label>
+    <input type="text" class="form-control" name="author" id="author" placeholder="Enter author name">
+  </div>
+  <div class="mb-3">
+    <label for="price" name="desc" class="form-label">Price : </label>
+    <input type="number" class="form-control" name="price" id="price" placeholder="Enter book price">
+  </div>
+  <div class="mb-3">
+    <label for="description" name="desc" class="form-label">Description(Maximum characters = 500) : </label>
+    <textarea class="form-control" name="description" id="description" maxlength="500"></textarea>
+  </div>
+  <div class="mb-3">
+    <button type="submit" class="btn btn-dark mb-3" style="width: 100%;">Add Book</button>
+  </div>
+</form>
+</div>
+{% endblock body %}

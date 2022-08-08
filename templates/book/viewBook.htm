@@ -1,0 +1,31 @@
+{% extends 'base.htm' %}
+{% block title %}View Book{% endblock title %}
+{% block body %}
+<div style="display: flex;height: 92vh;padding: 20px;">
+    <div style="width: 50%;height: 100%;">
+        <img src="{{book.book_img.url}}" style="height: 100%;" class="card-img-top" alt="...">
+    </div>
+    <div style="width: 50%;padding: 12px;">
+        <div style="display: flex;justify-content: right;">
+{% if request.user.id == book.userId or request.user.is_superuser%}
+<tr class="table-light">
+    <td class="table-light"><a  class="btn btn-warning" style="margin-right: 12px;" href="{%url 'updateBook' book.id%}">Update</a></td>
+    <td class="table-light"><a  class="btn btn-danger" href="{%url 'deleteBook' book.id%}">Delete</a></td>
+</tr>
+{% endif %}
+</div>
+<p style="font-size: 3vw;">{{book.name}} <span style="color:orange">by</span> {{book.author}}</p>
+<p style="font-size: 2vw;">Price :  <span style="color:red; font-weight:bold">Rs. {{book.price}}</span></p>
+<b style="font-size:2vw;">About the Book :</b>
+<p>{{book.description}}</p>
+<form method = "POST" action = "{% url 'viewBook' book.id%}" style="display: flex;position: absolute;bottom: 24px;width: 48%;">
+    {% csrf_token %}
+{% if book.inCart  %}
+    <button type="submit" class="btn btn-dark" style="width:100%;">In Cart</button>
+{% else %}
+    <button type="submit" class="btn btn-dark" style="width:100%;">Add To Cart</button>
+{% endif %}
+</form>
+</div>
+</div>
+{% endblock body %}

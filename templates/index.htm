@@ -1,0 +1,96 @@
+{% extends 'base.htm' %}
+{% block title %}Home{% endblock title %}
+{% block body %}
+<div >
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleDark" style="background-color:white;" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" style="background-color:white;" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" style="background-color:white;" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="10000">
+      <img src="/static/book.jpg" class="d-block w-100" style="height: 93vh" alt="...">
+      <div class="carousel-caption d-none d-md-block" style="color: white">
+        <h5>Books are a uniquely portable magic.</h5>
+        
+      </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" class="d-block w-100" style="height: 93vh" alt="...">
+      <div class="carousel-caption d-none d-md-block" style="color: white">
+        <h5>Reading one book is like eating one potato chip.</h5>
+       
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="https://images.unsplash.com/photo-1522008342704-6b265b543c37?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" class="d-block w-100" style="height: 93vh" alt="...">
+      <div class="carousel-caption d-none d-md-block" style="color: white">
+        <h5>The more that you read, the more things you will know. The more that you learn, the more places you’ll go.</h5>
+      
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" style="color:white" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+</div>
+<div class="text-center">
+  <div style="height: 100px; display:flex; margin-top:20px;">
+      <div style="height:100%; background: #00ffaf;display: flex;justify-content: center;align-items: center;font-size: 25px;width: 30%;">
+      <b style="margin-right:10px">Number of Book/s :</b> {{noOfBooks}}
+      </div>
+      <div style="background: #ffac63;width: 70%;">
+          <form method="POST" action="/" style="display: flex;justify-content: center;align-items: center;height: 100%;">
+              {% csrf_token %}
+              
+                  <label for="author" class="form-label" style="font-size:18px; font-weight:bold;">Search by Author : </label>
+                  <input type="text" class="form-control" id="author" name="author" style="width:65%; margin-left:10px;margin-right:10px;">
+                  
+               
+              
+              <button type="submit" class="btn btn-dark">Search</button>
+          </form>
+      </div>
+  </div>
+  <div class="row row-cols-2" style="display:flex; justify-content:flex-start; padding:12px; width:100%">
+
+      {% if noOfBooks == 0 %}
+      <div style="width: 100%;height: 65vh;display: flex;justify-content: center;align-items: center;font-size: 40px;">
+      No Books Available
+      </div>
+      {% endif %}
+      {% for book in books%}
+    
+      <a class="col card text-bg-light mb-3 p-0" href="{%url 'viewBook' book.id%}" style="max-width: 18rem; border-radius: 0px; margin:10px; height:67vh;text-decoration:none; padding: 10px important;">
+          <img src="{{book.book_img.url}}" class="card-img-top" alt="..." style="height:60%">
+          <div class="card-body">
+            <b class="card-title" style="font-size:100%">{{book.name}}</b>
+            
+              <table class="table-light" style="width: 100%; height:90%;">
+                  <tr class="table-light">
+                      <th class="table-light">Author</th>
+                      <td class="table-light">{{book.author}}</td>
+                  </tr>
+                  <tr class="table-light">
+                      <th class="table-light">Price</th>
+                      <td class="table-light">Rs.{{book.price}}</td>
+                  </tr>
+             
+              </table>
+      
+          
+          </div>
+       
+      </a>
+      {% endfor %}
+  </div>
+</div>
+{% endblock body %}
+
